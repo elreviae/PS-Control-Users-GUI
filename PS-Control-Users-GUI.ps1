@@ -4,7 +4,6 @@ pour contrôle des utilisateurs connectés sur un serveur (Exemple : Serveur RDS
 
 Maxime DES TOUCHES - 2025 | https://github.com/elreviae ------------
 #>
-
 # Load required assemblies
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
