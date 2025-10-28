@@ -11,7 +11,7 @@ Add-Type -AssemblyName System.Drawing
 
 # Create the main form
 $form = New-Object System.Windows.Forms.Form
-$form.Text = "User Sessions Monitor"
+$form.Text = "PS-Control-Users-GUI"
 $form.Size = New-Object System.Drawing.Size(810, 500)
 $form.StartPosition = "CenterScreen"
 $form.MinimumSize = New-Object System.Drawing.Size(600, 400)
@@ -93,8 +93,8 @@ function Update-QuserData {
         # Parse quser output (skip header line)
         $lines = $quserOutput | Select-Object -Skip 1
         foreach ($line in $lines) {
-            # Split line into fields, handling spaces and variable column widths
-            $fields = $line -split '\s+', 6 | ForEach-Object { $_.Trim() }
+            # Trim the line first to handle leading spaces, then split into fields
+            $fields = $line.Trim() -split '\s+', 6 | ForEach-Object { $_.Trim() }
             if ($fields.Count -ge 6) {
                 # Adjust fields based on quser output format
                 if ($fields[0].StartsWith(">")) {
@@ -110,12 +110,13 @@ function Update-QuserData {
 }
 
 # Timer for auto-refresh (every 30 seconds)
-$timer = New-Object System.Windows.Forms.Timer
-$timer.Interval = 30000  # 30 seconds in milliseconds
-$timer.Add_Tick({
-    Update-QuserData -grid $dataGridView -server $serverTextBox.Text
-})
-$timer.Start()
+
+# $timer = New-Object System.Windows.Forms.Timer
+# $timer.Interval = 30000  # 30 seconds in milliseconds
+# $timer.Add_Tick({
+#     Update-QuserData -grid $dataGridView -server $serverTextBox.Text
+# })
+# $timer.Start()
 
 # Refresh button click event
 $refreshButton.Add_Click({
